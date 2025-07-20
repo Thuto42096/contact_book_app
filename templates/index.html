@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Book</title>
+</head>
+<body>
+    <h1>Contact Book</h1>
+    <a href="/templates/add_contact.html">Add New Contact</a>
+    <h2>Contacts</h2>
+    <ul>
+        <script>
+            const contactsd = JSON.parse('{{ contacts | tojson | safe }}');
+            contactsd.forEach(contact => {
+                document.write(`<li>${contact.name} - ${contact.phone}</li>`);
+            });
+        </script>
+        <!-- Fallback for when JavaScript is disabled -->
+        {% for contact in contacts %}
+            <li>{{ contact.name }} - {{ contact.phone }}</li>
+        {% endfor %}
+        
+    
+        <li>Loading contacts...</li>
+
+    </ul>
+</body>
+</html>
