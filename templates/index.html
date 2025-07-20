@@ -8,20 +8,16 @@
     <a href="/templates/add_contact.html">Add New Contact</a>
     <h2>Contacts</h2>
     <ul>
-        <script>
-            const contactsd = JSON.parse('{{ contacts | tojson | safe }}');
-            contactsd.forEach(contact => {
-                document.write(`<li>${contact.name} - ${contact.phone}</li>`);
-            });
-        </script>
-        <!-- Fallback for when JavaScript is disabled -->
-        {% for contact in contacts %}
-            <li>{{ contact.name }} - {{ contact.phone }}</li>
-        {% endfor %}
-        
-    
-        <li>Loading contacts...</li>
-
+        {% if contacts %}
+            {% for name, details in contacts.items() %}
+                <li>
+                    <strong>{{ name }}</strong> - {{ details['phone'] }}
+                    <a href="{{ url_for('delete_contact', name=name) }}">Delete</a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>No contacts available.</li>
+        {% endif %}
     </ul>
 </body>
 </html>

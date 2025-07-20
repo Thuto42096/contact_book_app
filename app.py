@@ -6,7 +6,7 @@ contact_book = ContactBook()
 
 @app.route("/")
 def index():
-    return render_template("index.html", contacts=contact_book.contacts)
+    return render_template("index.html", contacts=contact_book.contacts if contact_book.contacts else None)
 
 @app.route("/add", methods=["GET", "POST"])
 def add_contact():
